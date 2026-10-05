@@ -10,9 +10,9 @@
 				'stroke-linecap': 'round',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '0',
-			},
-		],
+				key: '0'
+			}
+		]
 	];
 	const SparklesIcon: readonly (readonly [string, Record<string, string | number>])[] = [
 		[
@@ -22,8 +22,8 @@
 				stroke: 'currentColor',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '0',
-			},
+				key: '0'
+			}
 		],
 		[
 			'path',
@@ -32,9 +32,9 @@
 				stroke: 'currentColor',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '1',
-			},
-		],
+				key: '1'
+			}
+		]
 	];
 	const ArrowDown01Icon: readonly (readonly [string, Record<string, string | number>])[] = [
 		[
@@ -45,9 +45,9 @@
 				'stroke-linecap': 'round',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '0',
-			},
-		],
+				key: '0'
+			}
+		]
 	];
 	export type ThoughtLineGlyph = 'sparkle' | 'dot' | 'none' | Snippet | string | number | null;
 	export interface ThoughtLineProps {
@@ -135,7 +135,7 @@
 		showTimer = true,
 		onSettle,
 		className = '',
-		style,
+		style
 	}: ThoughtLineProps = $props();
 	import type { AnimationPlaybackControls } from 'motion';
 	let reduce = $state(false);
@@ -150,7 +150,7 @@
 	});
 	let autoSettled = $state(untrack(() => false));
 	function setAutoSettled(
-		value: typeof autoSettled | ((previous: typeof autoSettled) => typeof autoSettled),
+		value: typeof autoSettled | ((previous: typeof autoSettled) => typeof autoSettled)
 	) {
 		autoSettled = typeof value === 'function' ? value(autoSettled) : value;
 	}
@@ -212,7 +212,7 @@
 				animate(
 					el,
 					{ opacity: [trough, 1, trough] },
-					{ duration: period, ease: EASE_IN_OUT, repeat: Infinity, delay },
+					{ duration: period, ease: EASE_IN_OUT, repeat: Infinity, delay }
 				);
 			let cancelled = false;
 			const running: AnimationPlaybackControls[] = [];
@@ -317,7 +317,7 @@
 {#snippet iconSvg(
 	shapes: readonly (readonly [string, Record<string, string | number>])[],
 	size: number | string,
-	strokeWidth: number,
+	strokeWidth: number
 )}<svg
 		width={size}
 		height={size}
@@ -339,7 +339,7 @@
 			{#if glyph === 'sparkle'}{@render iconSvg(
 					SparklesIcon,
 					'100%',
-					2,
+					2
 				)}{:else}{#if glyph === 'dot'}<span
 						class="m-auto h-[0.5em] w-[0.5em] rounded-full bg-current"
 					></span>{:else}{#if typeof glyph === 'function'}{@render glyph()}{:else}{glyph ??
@@ -348,12 +348,12 @@
 	<span bind:this={stackRef.current} class="inline-grid" aria-hidden="true">
 		<span
 			bind:this={workRef.current}
-			class="w-max opacity-0 [grid-area:1/1] [filter:blur(var(--tl-blur))] [transition:opacity_var(--tl-settle)_cubic-bezier(0.23,1,0.32,1),filter_var(--tl-settle)_cubic-bezier(0.23,1,0.32,1)] data-[active]:opacity-100 data-[active]:[filter:blur(0)] motion-reduce:[filter:none]! motion-reduce:[transition:opacity_var(--tl-settle)_ease]"
+			class="w-max opacity-0 [filter:blur(var(--tl-blur))] [grid-area:1/1] [transition:opacity_var(--tl-settle)_cubic-bezier(0.23,1,0.32,1),filter_var(--tl-settle)_cubic-bezier(0.23,1,0.32,1)] data-[active]:opacity-100 data-[active]:[filter:blur(0)] motion-reduce:[filter:none]! motion-reduce:[transition:opacity_var(--tl-settle)_ease]"
 			data-active={isWorking ? '' : undefined}
 		>
 			<span
 				bind:this={breathRef.current}
-				class="inline-block group-data-[working]:data-[shimmer]:bg-clip-text group-data-[working]:data-[shimmer]:text-transparent group-data-[working]:data-[shimmer]:[background-image:linear-gradient(100deg,color-mix(in_srgb,var(--tl-color)_50%,transparent)_30%,var(--tl-color)_50%,color-mix(in_srgb,var(--tl-color)_50%,transparent)_70%)] group-data-[working]:data-[shimmer]:[background-size:250%_100%] group-data-[working]:data-[shimmer]:[background-position:125%_0] group-data-[working]:data-[shimmer]:[-webkit-text-fill-color:transparent] group-data-[working]:data-[shimmer]:[animation:thought-line-shimmer_var(--tl-shimmer)_linear_infinite]"
+				class="inline-block group-data-[working]:data-[shimmer]:[animation:thought-line-shimmer_var(--tl-shimmer)_linear_infinite] group-data-[working]:data-[shimmer]:[background-image:linear-gradient(100deg,color-mix(in_srgb,var(--tl-color)_50%,transparent)_30%,var(--tl-color)_50%,color-mix(in_srgb,var(--tl-color)_50%,transparent)_70%)] group-data-[working]:data-[shimmer]:[background-size:250%_100%] group-data-[working]:data-[shimmer]:bg-clip-text group-data-[working]:data-[shimmer]:[background-position:125%_0] group-data-[working]:data-[shimmer]:text-transparent group-data-[working]:data-[shimmer]:[-webkit-text-fill-color:transparent]"
 				data-shimmer={sheen ? '' : undefined}
 			>
 				{#if renderLabel}{@render renderLabel(label, true)}{:else}{label}{/if}
@@ -361,7 +361,7 @@
 		</span>
 		<span
 			bind:this={doneRef.current}
-			class="w-max opacity-0 [grid-area:1/1] [filter:blur(var(--tl-blur))] [transition:opacity_var(--tl-settle)_cubic-bezier(0.23,1,0.32,1),filter_var(--tl-settle)_cubic-bezier(0.23,1,0.32,1)] data-[active]:[opacity:var(--tl-done)] data-[active]:[filter:blur(0)] motion-reduce:[filter:none]! motion-reduce:[transition:opacity_var(--tl-settle)_ease]"
+			class="w-max opacity-0 [filter:blur(var(--tl-blur))] [grid-area:1/1] [transition:opacity_var(--tl-settle)_cubic-bezier(0.23,1,0.32,1),filter_var(--tl-settle)_cubic-bezier(0.23,1,0.32,1)] data-[active]:[opacity:var(--tl-done)] data-[active]:[filter:blur(0)] motion-reduce:[filter:none]! motion-reduce:[transition:opacity_var(--tl-settle)_ease]"
 			data-active={isWorking ? undefined : ''}
 		>
 			{#if renderLabel}{@render renderLabel(doneText, false)}{:else}{doneText}{/if}
@@ -376,7 +376,7 @@
 			0.0s
 		</span>{:else}{/if}
 	{#if collapsible}<span
-			class="ml-[0.1em] inline-flex opacity-0 [transition:opacity_200ms_ease,transform_200ms_cubic-bezier(0.23,1,0.32,1)] data-[on]:opacity-55 group-data-[open]:rotate-180"
+			class="ml-[0.1em] inline-flex opacity-0 [transition:opacity_200ms_ease,transform_200ms_cubic-bezier(0.23,1,0.32,1)] group-data-[open]:rotate-180 data-[on]:opacity-55"
 			data-on={hasTrace ? '' : undefined}
 			aria-hidden="true"
 		>
@@ -384,7 +384,7 @@
 		</span>{:else}{/if} <span class="sr-only" role="status"> {announce} </span>
 {/snippet}
 <div
-	class={`group inline-flex flex-col items-start leading-[1.2] font-medium [color:var(--tl-color)] [font-family:inherit] [font-size:var(--tl-font)] ${className ? ` ${className}` : ''}`}
+	class={`group inline-flex flex-col items-start [font-family:inherit] [font-size:var(--tl-font)] leading-[1.2] font-medium [color:var(--tl-color)] ${className ? ` ${className}` : ''}`}
 	data-working={isWorking ? '' : undefined}
 	data-open={open && hasTrace ? '' : undefined}
 	style={css({
@@ -396,7 +396,7 @@
 		'--tl-settle': `${settleDuration}ms`,
 		'--tl-blur': `${settleBlur}px`,
 		'--tl-shimmer': `${shimmerDuration}s`,
-		...style,
+		...style
 	} as CSSProperties)}
 >
 	{#if collapsible}<button
@@ -426,7 +426,7 @@
 				>
 					{#each steps as text, i}{@const done = !isWorking || i < steps.length - 1}
 						<div
-							class="group/step flex translate-y-0 items-center gap-[0.5em] opacity-100 [transition:opacity_200ms_cubic-bezier(0.23,1,0.32,1),transform_200ms_cubic-bezier(0.23,1,0.32,1)] starting:-translate-y-1 starting:opacity-0 motion-reduce:[transform:none]! motion-reduce:[transition:opacity_200ms_ease]"
+							class="group/step flex translate-y-0 items-center gap-[0.5em] opacity-100 [transition:opacity_200ms_cubic-bezier(0.23,1,0.32,1),transform_200ms_cubic-bezier(0.23,1,0.32,1)] motion-reduce:[transform:none]! motion-reduce:[transition:opacity_200ms_ease] starting:-translate-y-1 starting:opacity-0"
 							data-done={done ? '' : undefined}
 						>
 							<span
@@ -434,7 +434,7 @@
 								aria-hidden="true"
 							>
 								{#if done}{@render iconSvg(Tick02Icon, '1em', 2.5)}{:else}<i
-										class="block h-[0.4em] w-[0.4em] rounded-full bg-current [animation:thought-line-pulse_1.6s_cubic-bezier(0.77,0,0.175,1)_infinite] motion-reduce:[animation-duration:2.4s]"
+										class="block h-[0.4em] w-[0.4em] [animation:thought-line-pulse_1.6s_cubic-bezier(0.77,0,0.175,1)_infinite] rounded-full bg-current motion-reduce:[animation-duration:2.4s]"
 									></i>{/if}
 							</span>
 							<span

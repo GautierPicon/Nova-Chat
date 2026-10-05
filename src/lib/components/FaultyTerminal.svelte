@@ -197,8 +197,6 @@ void main() {
       col.b = getColor(p - ca).b;
     }
 
-    // alpha découplée de la teinte : une teinte sombre (mode clair) restait
-    // sinon quasi transparente car l'alpha suivait la luminosité teintée
     vec3 untinted = col;
     col *= uTint;
     col *= uBrightness;
@@ -214,7 +212,11 @@ void main() {
 
 	function hexToRgb(hex: string): [number, number, number] {
 		let h = hex.replace('#', '').trim();
-		if (h.length === 3) h = h.split('').map((c) => c + c).join('');
+		if (h.length === 3)
+			h = h
+				.split('')
+				.map((c) => c + c)
+				.join('');
 		const num = parseInt(h, 16);
 		return [((num >> 16) & 255) / 255, ((num >> 8) & 255) / 255, (num & 255) / 255];
 	}
@@ -356,7 +358,10 @@ void main() {
 			if (pageLoadAnimation && loadAnimationStart > 0) {
 				const animationDuration = 2000;
 				const animationElapsed = t - loadAnimationStart;
-				program.uniforms.uPageLoadProgress.value = Math.min(animationElapsed / animationDuration, 1);
+				program.uniforms.uPageLoadProgress.value = Math.min(
+					animationElapsed / animationDuration,
+					1
+				);
 			}
 
 			if (mouseReact) {
@@ -373,8 +378,6 @@ void main() {
 
 		raf = requestAnimationFrame(update);
 		currentContainer.appendChild(gl.canvas);
-		// écoute globale : le calque est en fond plein écran, le curseur est presque
-		// toujours au-dessus du contenu, jamais au-dessus du canvas lui-même
 		if (mouseReact) window.addEventListener('mousemove', handleMouseMove);
 
 		return () => {

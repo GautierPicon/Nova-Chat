@@ -11,9 +11,9 @@
 				'stroke-linecap': 'round',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '0',
-			},
-		],
+				key: '0'
+			}
+		]
 	];
 	const SparklesIcon: readonly (readonly [string, Record<string, string | number>])[] = [
 		[
@@ -23,8 +23,8 @@
 				stroke: 'currentColor',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '0',
-			},
+				key: '0'
+			}
 		],
 		[
 			'path',
@@ -33,9 +33,9 @@
 				stroke: 'currentColor',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '1',
-			},
-		],
+				key: '1'
+			}
+		]
 	];
 	const PlusSignIcon: readonly (readonly [string, Record<string, string | number>])[] = [
 		[
@@ -46,9 +46,9 @@
 				'stroke-linecap': 'round',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '0',
-			},
-		],
+				key: '0'
+			}
+		]
 	];
 	const Mic01Icon: readonly (readonly [string, Record<string, string | number>])[] = [
 		[
@@ -59,8 +59,8 @@
 				'stroke-linecap': 'round',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '0',
-			},
+				key: '0'
+			}
 		],
 		[
 			'path',
@@ -70,9 +70,9 @@
 				'stroke-linecap': 'round',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '1',
-			},
-		],
+				key: '1'
+			}
+		]
 	];
 	const Mail01Icon: readonly (readonly [string, Record<string, string | number>])[] = [
 		[
@@ -82,8 +82,8 @@
 				stroke: 'currentColor',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '0',
-			},
+				key: '0'
+			}
 		],
 		[
 			'path',
@@ -92,9 +92,9 @@
 				stroke: 'currentColor',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '1',
-			},
-		],
+				key: '1'
+			}
+		]
 	];
 	const HelpCircleIcon: readonly (readonly [string, Record<string, string | number>])[] = [
 		[
@@ -107,8 +107,8 @@
 				'stroke-linecap': 'round',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '0',
-			},
+				key: '0'
+			}
 		],
 		[
 			'path',
@@ -118,8 +118,8 @@
 				'stroke-linecap': 'round',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '1',
-			},
+				key: '1'
+			}
 		],
 		[
 			'path',
@@ -129,14 +129,14 @@
 				'stroke-linecap': 'round',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '2',
-			},
-		],
+				key: '2'
+			}
+		]
 	];
 	const Globe02Icon: readonly (readonly [string, Record<string, string | number>])[] = [
 		[
 			'circle',
-			{ cx: '12', cy: '12', r: '10', stroke: 'currentColor', 'stroke-width': '1.5', key: '0' },
+			{ cx: '12', cy: '12', r: '10', stroke: 'currentColor', 'stroke-width': '1.5', key: '0' }
 		],
 		[
 			'path',
@@ -145,8 +145,8 @@
 				stroke: 'currentColor',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '1',
-			},
+				key: '1'
+			}
 		],
 		[
 			'path',
@@ -156,8 +156,8 @@
 				'stroke-linecap': 'round',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '2',
-			},
+				key: '2'
+			}
 		],
 		[
 			'path',
@@ -167,9 +167,9 @@
 				'stroke-linecap': 'round',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '3',
-			},
-		],
+				key: '3'
+			}
+		]
 	];
 	const File02Icon: readonly (readonly [string, Record<string, string | number>])[] = [
 		[
@@ -180,8 +180,8 @@
 				'stroke-linecap': 'round',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '0',
-			},
+				key: '0'
+			}
 		],
 		[
 			'path',
@@ -191,8 +191,8 @@
 				'stroke-linecap': 'round',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '1',
-			},
+				key: '1'
+			}
 		],
 		[
 			'path',
@@ -202,9 +202,9 @@
 				'stroke-linecap': 'round',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '2',
-			},
-		],
+				key: '2'
+			}
+		]
 	];
 	const ChartLineData01Icon: readonly (readonly [string, Record<string, string | number>])[] = [
 		[
@@ -214,8 +214,8 @@
 				stroke: 'currentColor',
 				'stroke-linecap': 'round',
 				'stroke-width': '1.5',
-				key: '0',
-			},
+				key: '0'
+			}
 		],
 		[
 			'path',
@@ -225,9 +225,9 @@
 				'stroke-linecap': 'round',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '1',
-			},
-		],
+				key: '1'
+			}
+		]
 	];
 	const Cancel01Icon: readonly (readonly [string, Record<string, string | number>])[] = [
 		[
@@ -238,9 +238,9 @@
 				'stroke-linecap': 'round',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '0',
-			},
-		],
+				key: '0'
+			}
+		]
 	];
 	const Calendar03Icon: readonly (readonly [string, Record<string, string | number>])[] = [
 		[
@@ -251,8 +251,8 @@
 				'stroke-linecap': 'round',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '0',
-			},
+				key: '0'
+			}
 		],
 		[
 			'path',
@@ -262,8 +262,8 @@
 				'stroke-linecap': 'round',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '1',
-			},
+				key: '1'
+			}
 		],
 		[
 			'path',
@@ -273,8 +273,8 @@
 				'stroke-linecap': 'round',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '2',
-			},
+				key: '2'
+			}
 		],
 		[
 			'path',
@@ -284,9 +284,9 @@
 				'stroke-linecap': 'round',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '3',
-			},
-		],
+				key: '3'
+			}
+		]
 	];
 	const Attachment01Icon: readonly (readonly [string, Record<string, string | number>])[] = [
 		[
@@ -297,9 +297,9 @@
 				'stroke-linecap': 'round',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '0',
-			},
-		],
+				key: '0'
+			}
+		]
 	];
 	const ArrowDown01Icon: readonly (readonly [string, Record<string, string | number>])[] = [
 		[
@@ -310,9 +310,9 @@
 				'stroke-linecap': 'round',
 				'stroke-linejoin': 'round',
 				'stroke-width': '1.5',
-				key: '0',
-			},
-		],
+				key: '0'
+			}
+		]
 	];
 	export interface PromptBarSource {
 		key: string;
@@ -404,14 +404,14 @@
 			name: 'Photos & files',
 			description: 'Upload from this device',
 			icon: Attachment01Icon,
-			attach: true,
+			attach: true
 		},
 		{ key: 'web', name: 'Web search', description: 'Live results', icon: Globe02Icon },
 		{
 			key: 'sales',
 			name: 'Sales data',
 			description: 'Revenue and churn',
-			icon: ChartLineData01Icon,
+			icon: ChartLineData01Icon
 		},
 		{ key: 'docs', name: 'Documents', description: 'Specs, notes, briefs', icon: File02Icon },
 		{ key: 'mail', name: 'Mail', description: 'Read and draft mail', icon: Mail01Icon },
@@ -419,20 +419,20 @@
 			key: 'calendar',
 			name: 'Calendar',
 			description: 'Events and availability',
-			icon: Calendar03Icon,
-		},
+			icon: Calendar03Icon
+		}
 	];
 	const DEFAULT_COMMANDS: PromptBarCommand[] = [
 		{ key: 'summarize', name: '/summarize', description: 'Digest the thread so far' },
 		{ key: 'compare', name: '/compare', description: 'Two options side by side' },
 		{ key: 'draft', name: '/draft', description: 'Write a first version' },
 		{ key: 'explain', name: '/explain', description: 'A plain-language walkthrough' },
-		{ key: 'tasks', name: '/tasks', description: 'Turn this into a to-do list' },
+		{ key: 'tasks', name: '/tasks', description: 'Turn this into a to-do list' }
 	];
 	const DEFAULT_MODELS: PromptBarModel[] = [
 		{ key: 'nova-3', name: 'Nova 3', tag: 'Flagship' },
 		{ key: 'nova-mini', name: 'Nova Mini', tag: 'Fast' },
-		{ key: 'nova-2', name: 'Nova 2', tag: 'Legacy' },
+		{ key: 'nova-2', name: 'Nova 2', tag: 'Legacy' }
 	];
 	const DEFAULT_EFFORTS = ['Low', 'Medium', 'High', 'Extra', 'Max'];
 	const mix = (a: number, b: number, t: number) => a + (b - a) * t;
@@ -449,7 +449,7 @@
 		return {
 			kind: m[2] === '@' ? 'at' : 'slash',
 			query: m[3].toLowerCase(),
-			start: m.index + m[1].length,
+			start: m.index + m[1].length
 		};
 	};
 
@@ -503,7 +503,7 @@
 		squash = 0.12,
 		tilt = 8,
 		pressScale = 0.96,
-		className = '',
+		className = ''
 	}: PromptBarProps = $props();
 	let reduce = $state(false);
 	onMount(() => {
@@ -537,31 +537,31 @@
 	}
 	let attachments = $state<string[]>(untrack(() => []));
 	function setAttachments(
-		nextState: typeof attachments | ((previous: typeof attachments) => typeof attachments),
+		nextState: typeof attachments | ((previous: typeof attachments) => typeof attachments)
 	) {
 		attachments = typeof nextState === 'function' ? nextState(attachments) : nextState;
 	}
 	let modelKey = $state(untrack(() => defaultModel));
 	function setModelKey(
-		nextState: typeof modelKey | ((previous: typeof modelKey) => typeof modelKey),
+		nextState: typeof modelKey | ((previous: typeof modelKey) => typeof modelKey)
 	) {
 		modelKey = typeof nextState === 'function' ? nextState(modelKey) : nextState;
 	}
 	let plusOpen = $state(untrack(() => false));
 	function setPlusOpen(
-		nextState: typeof plusOpen | ((previous: typeof plusOpen) => typeof plusOpen),
+		nextState: typeof plusOpen | ((previous: typeof plusOpen) => typeof plusOpen)
 	) {
 		plusOpen = typeof nextState === 'function' ? nextState(plusOpen) : nextState;
 	}
 	let modelOpen = $state(untrack(() => false));
 	function setModelOpen(
-		nextState: typeof modelOpen | ((previous: typeof modelOpen) => typeof modelOpen),
+		nextState: typeof modelOpen | ((previous: typeof modelOpen) => typeof modelOpen)
 	) {
 		modelOpen = typeof nextState === 'function' ? nextState(modelOpen) : nextState;
 	}
 	let effortOpen = $state(untrack(() => false));
 	function setEffortOpen(
-		nextState: typeof effortOpen | ((previous: typeof effortOpen) => typeof effortOpen),
+		nextState: typeof effortOpen | ((previous: typeof effortOpen) => typeof effortOpen)
 	) {
 		effortOpen = typeof nextState === 'function' ? nextState(effortOpen) : nextState;
 	}
@@ -570,17 +570,17 @@
 			(() => {
 				const i = efforts.indexOf(defaultEffort);
 				return i >= 0 ? i : Math.max(0, Math.floor((efforts.length - 1) / 2));
-			})(),
-		),
+			})()
+		)
 	);
 	function setEffortIndex(
-		nextState: typeof effortIndex | ((previous: typeof effortIndex) => typeof effortIndex),
+		nextState: typeof effortIndex | ((previous: typeof effortIndex) => typeof effortIndex)
 	) {
 		effortIndex = typeof nextState === 'function' ? nextState(effortIndex) : nextState;
 	}
 	let dismissed = $state(untrack(() => false));
 	function setDismissed(
-		nextState: typeof dismissed | ((previous: typeof dismissed) => typeof dismissed),
+		nextState: typeof dismissed | ((previous: typeof dismissed) => typeof dismissed)
 	) {
 		dismissed = typeof nextState === 'function' ? nextState(dismissed) : nextState;
 	}
@@ -590,7 +590,7 @@
 	}
 	let listening = $state(untrack(() => false));
 	function setListening(
-		nextState: typeof listening | ((previous: typeof listening) => typeof listening),
+		nextState: typeof listening | ((previous: typeof listening) => typeof listening)
 	) {
 		listening = typeof nextState === 'function' ? nextState(listening) : nextState;
 	}
@@ -601,7 +601,7 @@
 	const model = $derived(models.find((m) => m.key === modelKey) ?? models[0]);
 	const token = $derived(dismissed ? null : parseToken(draft));
 	const open = $derived(
-		plusOpen ? 'at' : (token?.kind ?? (modelOpen ? 'model' : effortOpen ? 'effort' : null)),
+		plusOpen ? 'at' : (token?.kind ?? (modelOpen ? 'model' : effortOpen ? 'effort' : null))
 	);
 	const query = $derived(plusOpen ? '' : (token?.query ?? ''));
 	const list: Row[] = $derived.by(() => {
@@ -719,7 +719,7 @@
 					sway: (Math.random() - 0.5) * 10,
 					phase: Math.random() * Math.PI * 2,
 					life: burst ? Math.random() * 1.2 : 0,
-					span: 2.4 + Math.random() * 2.4,
+					span: 2.4 + Math.random() * 2.4
 				});
 			};
 			const tick = (now: number) => {
@@ -767,7 +767,7 @@
 						p.y,
 						p.r * twinkle * (1 + energy * 0.35),
 						0,
-						Math.PI * 2,
+						Math.PI * 2
 					);
 					ctx.fill();
 				}
@@ -869,7 +869,7 @@
 			},
 			() => {
 				if (seq === dictation.current) setListening(false);
-			},
+			}
 		);
 	};
 	const onKeyDown = (e: KeyboardEvent & { currentTarget: HTMLTextAreaElement }) => {
@@ -924,16 +924,14 @@
 				controls = animate(
 					t,
 					data.busy ? 1 : 0,
-					data.reduce
-						? { duration: 0 }
-						: { duration: data.morphDuration / 1000, ease: EASE_IN_OUT },
+					data.reduce ? { duration: 0 } : { duration: data.morphDuration / 1000, ease: EASE_IN_OUT }
 				);
 			},
 			destroy() {
 				controls?.stop();
 				off();
 				t.destroy();
-			},
+			}
 		};
 	}
 </script>
@@ -941,13 +939,13 @@
 {#snippet renderIcon(icon: Row['icon'], size: number)}{#if Array.isArray(icon)}{@render iconSvg(
 			icon as IconSvgElement,
 			size,
-			1.8,
+			1.8
 		)}{:else if typeof icon === 'function'}{@render icon()}{:else}{icon}{/if}{/snippet}
 {#snippet iconSvg(
 	shapes: readonly (readonly [string, Record<string, string | number>])[],
 	size: number | string,
 	strokeWidth: number,
-	fill: string = 'none',
+	fill: string = 'none'
 )}<svg
 		width={size}
 		height={size}
@@ -962,7 +960,7 @@
 	>{/snippet}
 <div
 	bind:this={rootRef.current}
-	class={`group relative text-[14px] leading-[22px] [width:min(var(--pb-w),100%)] [color:var(--pb-ink)] ${className ? ` ${className}` : ''}`}
+	class={`group relative [width:min(var(--pb-w),100%)] text-[14px] leading-[22px] [color:var(--pb-ink)] ${className ? ` ${className}` : ''}`}
 	data-busy={busy ? '' : undefined}
 	data-max={maxed ? '' : undefined}
 	style={css({
@@ -972,11 +970,11 @@
 		'--pb-w': `${width}px`,
 		'--pb-radius': `${radius}px`,
 		'--pb-spark': sparkColor,
-		'--pb-press': pressScale,
+		'--pb-press': pressScale
 	} as CSSProperties)}
 >
 	{#if open}<div
-			class="absolute inset-x-0 bottom-[calc(100%+8px)] z-[2] origin-bottom rounded-xl p-1 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.35),0_1px_2px_rgba(0,0,0,0.08)] [animation:prompt-bar-pop_180ms_cubic-bezier(0.23,1,0.32,1)_both] [background:var(--pb-menu)] data-[kind=model]:right-auto data-[kind=model]:w-[200px] data-[kind=model]:origin-bottom-left data-[kind=effort]:right-auto data-[kind=effort]:w-[248px] data-[kind=effort]:origin-bottom-left data-[kind=effort]:px-3.5 data-[kind=effort]:pt-3 data-[kind=effort]:pb-3.5 motion-reduce:[animation:none]"
+			class="absolute inset-x-0 bottom-[calc(100%+8px)] z-[2] origin-bottom [animation:prompt-bar-pop_180ms_cubic-bezier(0.23,1,0.32,1)_both] rounded-xl p-1 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.35),0_1px_2px_rgba(0,0,0,0.08)] [background:var(--pb-menu)] data-[kind=effort]:right-auto data-[kind=effort]:w-[248px] data-[kind=effort]:origin-bottom-left data-[kind=effort]:px-3.5 data-[kind=effort]:pt-3 data-[kind=effort]:pb-3.5 data-[kind=model]:right-auto data-[kind=model]:w-[200px] data-[kind=model]:origin-bottom-left motion-reduce:[animation:none]"
 			role={open === 'effort' ? 'dialog' : 'listbox'}
 			aria-label={open === 'at'
 				? 'Sources'
@@ -1014,7 +1012,7 @@
 					aria-valuetext={level}
 					style={css({
 						'--pb-effort-x': stepAt(effortIndex),
-						'--pb-effort-fill': fillAt(effortIndex),
+						'--pb-effort-fill': fillAt(effortIndex)
 					} as CSSProperties)}
 					onpointerdown={(e) => {
 						if (e.button !== 0) return;
@@ -1030,14 +1028,14 @@
 					onkeydown={onEffortKey}
 				>
 					<span
-						class="absolute inset-y-0 left-0 rounded-[11px] [width:var(--pb-effort-fill)] [background:color-mix(in_srgb,var(--pb-ink)_18%,transparent)] [transition:width_220ms_cubic-bezier(0.23,1,0.32,1),background-color_300ms_ease] group-data-[max]:[background:color-mix(in_srgb,var(--pb-spark)_35%,transparent)] motion-reduce:[transition:background-color_300ms_ease]"
+						class="absolute inset-y-0 left-0 [width:var(--pb-effort-fill)] rounded-[11px] [background:color-mix(in_srgb,var(--pb-ink)_18%,transparent)] [transition:width_220ms_cubic-bezier(0.23,1,0.32,1),background-color_300ms_ease] group-data-[max]:[background:color-mix(in_srgb,var(--pb-spark)_35%,transparent)] motion-reduce:[transition:background-color_300ms_ease]"
 					></span>
 					{#each efforts as label, i}<i
 							class="absolute top-1/2 -mt-0.5 -ml-0.5 h-1 w-1 rounded-full [background:color-mix(in_srgb,var(--pb-ink)_30%,transparent)]"
 							style={css({ left: stepAt(i) })}
 						></i>{/each}
 					<span
-						class="absolute -top-[3px] -ml-[7px] h-7 w-3.5 rounded-[7px] shadow-[0_2px_6px_rgba(0,0,0,0.25)] [left:var(--pb-effort-x)] [background:var(--pb-ink)] [transition:left_220ms_cubic-bezier(0.23,1,0.32,1),background-color_300ms_ease] group-data-[max]:[background:var(--pb-spark)] motion-reduce:[transition:background-color_300ms_ease]"
+						class="absolute -top-[3px] [left:var(--pb-effort-x)] -ml-[7px] h-7 w-3.5 rounded-[7px] shadow-[0_2px_6px_rgba(0,0,0,0.25)] [background:var(--pb-ink)] [transition:left_220ms_cubic-bezier(0.23,1,0.32,1),background-color_300ms_ease] group-data-[max]:[background:var(--pb-spark)] motion-reduce:[transition:background-color_300ms_ease]"
 					></span>
 				</div>
 			{:else}
@@ -1051,7 +1049,7 @@
 						type="button"
 						role="option"
 						aria-selected={i === cursor}
-						class="relative z-[1] flex h-9 w-full cursor-pointer items-center gap-2.5 rounded-lg border-0 bg-transparent px-2 text-left text-inherit outline-none [font:inherit] [-webkit-tap-highlight-color:transparent]"
+						class="relative z-[1] flex h-9 w-full cursor-pointer items-center gap-2.5 rounded-lg border-0 bg-transparent px-2 text-left text-inherit outline-none [-webkit-tap-highlight-color:transparent] [font:inherit]"
 						onmousedown={(e) => e.preventDefault()}
 						onpointerenter={() => setActive(i)}
 						onclick={() => pick(row)}
@@ -1088,7 +1086,7 @@
 			{/if}
 		</div>{:else}{/if}
 	<div
-		class="relative isolate flex cursor-text flex-col gap-2 p-3 [background:var(--pb-bg)] [border-radius:var(--pb-radius)] before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:opacity-0 before:content-[''] before:[background:radial-gradient(140%_120%_at_0%_100%,color-mix(in_srgb,var(--pb-spark)_26%,transparent),transparent_62%)] before:[transition:opacity_500ms_ease] data-[max]:before:opacity-100"
+		class="relative isolate flex cursor-text flex-col gap-2 [border-radius:var(--pb-radius)] p-3 [background:var(--pb-bg)] before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:opacity-0 before:content-[''] before:[background:radial-gradient(140%_120%_at_0%_100%,color-mix(in_srgb,var(--pb-spark)_26%,transparent),transparent_62%)] before:[transition:opacity_500ms_ease] data-[max]:before:opacity-100"
 		role="presentation"
 		data-max={maxed ? '' : undefined}
 		onpointerdown={(e) => {
@@ -1103,7 +1101,7 @@
 		></canvas>
 		{#if attachments.length > 0}<div class="flex flex-wrap gap-1.5">
 				{#each attachments as file, i}<span
-						class="inline-flex h-[26px] items-center gap-1.5 rounded-lg pr-1 pl-2 text-[12px] [animation:prompt-bar-pop_200ms_cubic-bezier(0.23,1,0.32,1)_both] [background:color-mix(in_srgb,var(--pb-ink)_8%,transparent)] motion-reduce:[animation:none]"
+						class="inline-flex h-[26px] [animation:prompt-bar-pop_200ms_cubic-bezier(0.23,1,0.32,1)_both] items-center gap-1.5 rounded-lg pr-1 pl-2 text-[12px] [background:color-mix(in_srgb,var(--pb-ink)_8%,transparent)] motion-reduce:[animation:none]"
 					>
 						{@render iconSvg(File02Icon, 12, 2, 'none')}
 						<span class="max-w-[144px] truncate">{file}</span>
@@ -1119,7 +1117,7 @@
 			</div>{:else}{/if}
 		<textarea
 			bind:this={inputRef.current}
-			class="block w-full resize-none border-0 bg-transparent p-0 text-[14px] leading-[22px] text-inherit outline-none [font:inherit] [overflow-wrap:anywhere] placeholder:[color:color-mix(in_srgb,var(--pb-ink)_45%,transparent)] [@media(pointer:coarse)]:text-[16px]"
+			class="block w-full resize-none border-0 bg-transparent p-0 text-[14px] leading-[22px] [overflow-wrap:anywhere] text-inherit outline-none [font:inherit] placeholder:[color:color-mix(in_srgb,var(--pb-ink)_45%,transparent)] [@media(pointer:coarse)]:text-[16px]"
 			rows={1}
 			value={draft}
 			placeholder={listening ? 'Listening…' : placeholder}
@@ -1137,7 +1135,7 @@
 		<div class="flex items-center gap-1">
 			<button
 				type="button"
-				class="inline-grid h-7 w-7 flex-none cursor-pointer touch-manipulation place-items-center rounded-lg border-0 bg-transparent p-0 outline-none select-none [color:color-mix(in_srgb,var(--pb-ink)_60%,transparent)] [font:inherit] [-webkit-tap-highlight-color:transparent] [transition:background-color_150ms_ease,color_150ms_ease,transform_160ms_cubic-bezier(0.23,1,0.32,1)] active:[transform:scale(0.94)] data-[on]:[background:color-mix(in_srgb,var(--pb-ink)_8%,transparent)] data-[on]:[color:var(--pb-ink)] motion-reduce:active:[transform:none] [@media(hover:hover)_and_(pointer:fine)]:hover:[background:color-mix(in_srgb,var(--pb-ink)_8%,transparent)] [@media(hover:hover)_and_(pointer:fine)]:hover:[color:var(--pb-ink)]"
+				class="inline-grid h-7 w-7 flex-none cursor-pointer touch-manipulation place-items-center rounded-lg border-0 bg-transparent p-0 [color:color-mix(in_srgb,var(--pb-ink)_60%,transparent)] outline-none select-none [-webkit-tap-highlight-color:transparent] [font:inherit] [transition:background-color_150ms_ease,color_150ms_ease,transform_160ms_cubic-bezier(0.23,1,0.32,1)] active:[transform:scale(0.94)] data-[on]:[color:var(--pb-ink)] data-[on]:[background:color-mix(in_srgb,var(--pb-ink)_8%,transparent)] motion-reduce:active:[transform:none] [@media(hover:hover)_and_(pointer:fine)]:hover:[color:var(--pb-ink)] [@media(hover:hover)_and_(pointer:fine)]:hover:[background:color-mix(in_srgb,var(--pb-ink)_8%,transparent)]"
 				aria-label="Add files and sources"
 				aria-expanded={plusOpen}
 				data-on={plusOpen ? '' : undefined}
@@ -1154,7 +1152,7 @@
 			</button>
 			{#if models.length > 0}<button
 					type="button"
-					class="inline-flex h-7 flex-none cursor-pointer touch-manipulation items-center gap-1 rounded-lg border-0 bg-transparent px-2 text-[12px] font-medium outline-none select-none [color:color-mix(in_srgb,var(--pb-ink)_70%,transparent)] [font:inherit] [-webkit-tap-highlight-color:transparent] [transition:background-color_150ms_ease,color_150ms_ease] data-[on]:[background:color-mix(in_srgb,var(--pb-ink)_8%,transparent)] data-[on]:[color:var(--pb-ink)] [@media(hover:hover)_and_(pointer:fine)]:hover:[background:color-mix(in_srgb,var(--pb-ink)_8%,transparent)] [@media(hover:hover)_and_(pointer:fine)]:hover:[color:var(--pb-ink)] data-[max]:[color:var(--pb-spark)]!"
+					class="inline-flex h-7 flex-none cursor-pointer touch-manipulation items-center gap-1 rounded-lg border-0 bg-transparent px-2 text-[12px] font-medium [color:color-mix(in_srgb,var(--pb-ink)_70%,transparent)] outline-none select-none [-webkit-tap-highlight-color:transparent] [font:inherit] [transition:background-color_150ms_ease,color_150ms_ease] data-[max]:[color:var(--pb-spark)]! data-[on]:[color:var(--pb-ink)] data-[on]:[background:color-mix(in_srgb,var(--pb-ink)_8%,transparent)] [@media(hover:hover)_and_(pointer:fine)]:hover:[color:var(--pb-ink)] [@media(hover:hover)_and_(pointer:fine)]:hover:[background:color-mix(in_srgb,var(--pb-ink)_8%,transparent)]"
 					aria-label="Choose model"
 					aria-expanded={modelOpen}
 					data-on={modelOpen ? '' : undefined}
@@ -1172,7 +1170,7 @@
 				</button>{:else}{/if}
 			{#if efforts.length > 0}<button
 					type="button"
-					class="inline-flex h-7 flex-none cursor-pointer touch-manipulation items-center gap-1 rounded-lg border-0 bg-transparent px-2 text-[12px] font-medium outline-none select-none [color:color-mix(in_srgb,var(--pb-ink)_70%,transparent)] [font:inherit] [-webkit-tap-highlight-color:transparent] [transition:background-color_150ms_ease,color_150ms_ease] data-[on]:[background:color-mix(in_srgb,var(--pb-ink)_8%,transparent)] data-[on]:[color:var(--pb-ink)] [@media(hover:hover)_and_(pointer:fine)]:hover:[background:color-mix(in_srgb,var(--pb-ink)_8%,transparent)] [@media(hover:hover)_and_(pointer:fine)]:hover:[color:var(--pb-ink)] data-[max]:[color:var(--pb-spark)]!"
+					class="inline-flex h-7 flex-none cursor-pointer touch-manipulation items-center gap-1 rounded-lg border-0 bg-transparent px-2 text-[12px] font-medium [color:color-mix(in_srgb,var(--pb-ink)_70%,transparent)] outline-none select-none [-webkit-tap-highlight-color:transparent] [font:inherit] [transition:background-color_150ms_ease,color_150ms_ease] data-[max]:[color:var(--pb-spark)]! data-[on]:[color:var(--pb-ink)] data-[on]:[background:color-mix(in_srgb,var(--pb-ink)_8%,transparent)] [@media(hover:hover)_and_(pointer:fine)]:hover:[color:var(--pb-ink)] [@media(hover:hover)_and_(pointer:fine)]:hover:[background:color-mix(in_srgb,var(--pb-ink)_8%,transparent)]"
 					aria-label="Choose effort"
 					aria-expanded={effortOpen}
 					data-on={effortOpen ? '' : undefined}
@@ -1189,7 +1187,7 @@
 				</button>{:else}{/if} <span class="flex-auto"></span>
 			{#if onDictate}<button
 					type="button"
-					class="inline-grid h-7 w-7 flex-none cursor-pointer touch-manipulation place-items-center rounded-lg border-0 bg-transparent p-0 outline-none select-none [color:color-mix(in_srgb,var(--pb-ink)_60%,transparent)] [font:inherit] [-webkit-tap-highlight-color:transparent] [transition:background-color_150ms_ease,color_150ms_ease,transform_160ms_cubic-bezier(0.23,1,0.32,1)] active:[transform:scale(0.94)] data-[on]:[background:color-mix(in_srgb,var(--pb-ink)_8%,transparent)] data-[on]:[color:var(--pb-ink)] motion-reduce:active:[transform:none] [@media(hover:hover)_and_(pointer:fine)]:hover:[background:color-mix(in_srgb,var(--pb-ink)_8%,transparent)] [@media(hover:hover)_and_(pointer:fine)]:hover:[color:var(--pb-ink)]"
+					class="inline-grid h-7 w-7 flex-none cursor-pointer touch-manipulation place-items-center rounded-lg border-0 bg-transparent p-0 [color:color-mix(in_srgb,var(--pb-ink)_60%,transparent)] outline-none select-none [-webkit-tap-highlight-color:transparent] [font:inherit] [transition:background-color_150ms_ease,color_150ms_ease,transform_160ms_cubic-bezier(0.23,1,0.32,1)] active:[transform:scale(0.94)] data-[on]:[color:var(--pb-ink)] data-[on]:[background:color-mix(in_srgb,var(--pb-ink)_8%,transparent)] motion-reduce:active:[transform:none] [@media(hover:hover)_and_(pointer:fine)]:hover:[color:var(--pb-ink)] [@media(hover:hover)_and_(pointer:fine)]:hover:[background:color-mix(in_srgb,var(--pb-ink)_8%,transparent)]"
 					aria-label={listening ? 'Stop dictation' : 'Dictate'}
 					aria-pressed={listening}
 					data-on={listening ? '' : undefined}
@@ -1197,7 +1195,7 @@
 					onclick={toggleListen}
 				>
 					{#if listening}<span
-							class="flex h-3.5 items-center gap-[2.5px] [&>i]:block [&>i]:h-full [&>i]:w-[2.5px] [&>i]:origin-center [&>i]:rounded-full [&>i]:bg-current [&>i]:[animation:prompt-bar-eq_900ms_ease-in-out_infinite] [&>i:nth-child(2)]:[animation-delay:150ms] [&>i:nth-child(3)]:[animation-delay:300ms]"
+							class="flex h-3.5 items-center gap-[2.5px] [&>i]:block [&>i]:h-full [&>i]:w-[2.5px] [&>i]:origin-center [&>i]:[animation:prompt-bar-eq_900ms_ease-in-out_infinite] [&>i]:rounded-full [&>i]:bg-current [&>i:nth-child(2)]:[animation-delay:150ms] [&>i:nth-child(3)]:[animation-delay:300ms]"
 							aria-hidden="true"
 						>
 							<i></i> <i></i> <i></i>
@@ -1205,7 +1203,7 @@
 				</button>{:else}{/if}
 			<button
 				type="button"
-				class="relative inline-grid h-7 w-7 flex-none cursor-pointer touch-manipulation place-items-center rounded-lg border-0 p-0 outline-none select-none [background:color-mix(in_srgb,var(--pb-ink)_12%,var(--pb-bg))] [color:color-mix(in_srgb,var(--pb-ink)_55%,var(--pb-bg))] [font:inherit] [-webkit-tap-highlight-color:transparent] [transition:background-color_200ms_ease,color_200ms_ease,transform_160ms_cubic-bezier(0.23,1,0.32,1)] disabled:cursor-default data-[armed]:[background:var(--pb-ink)] data-[armed]:[color:var(--pb-bg)] data-[pressed]:[transform:scale(var(--pb-press))] motion-reduce:data-[pressed]:[transform:none]"
+				class="relative inline-grid h-7 w-7 flex-none cursor-pointer touch-manipulation place-items-center rounded-lg border-0 p-0 [color:color-mix(in_srgb,var(--pb-ink)_55%,var(--pb-bg))] outline-none select-none [-webkit-tap-highlight-color:transparent] [background:color-mix(in_srgb,var(--pb-ink)_12%,var(--pb-bg))] [font:inherit] [transition:background-color_200ms_ease,color_200ms_ease,transform_160ms_cubic-bezier(0.23,1,0.32,1)] disabled:cursor-default data-[armed]:[color:var(--pb-bg)] data-[armed]:[background:var(--pb-ink)] data-[pressed]:[transform:scale(var(--pb-press))] motion-reduce:data-[pressed]:[transform:none]"
 				disabled={!armed}
 				aria-label={busy ? 'Stop' : 'Send'}
 				data-armed={armed ? '' : undefined}
