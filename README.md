@@ -1,66 +1,38 @@
 # Nova Chat
 
-Interface de chat IA (SvelteKit + Tailwind).
+Interface de chat IA en noir & blanc — SvelteKit 5, Tailwind v4, mode clair/sombre.
+Démo locale : les réponses sont simulées (streaming + réflexion), aucune clé API requise.
+
+## Fonctionnalités
+
+- **Conversation** : envoi, stop en cours de génération, historique, pièces jointes, dictée
+  vocale (Web Speech API), sélecteur de modèle et curseur d'effort
+- **Ligne de réflexion** : chrono réel de réflexion avant chaque réponse
+- **`/image <description>`** : génération d'image avec révélation animée en grille
+- **Intro plein écran** : fond WebGL réactif à la souris (visible avant le premier message)
+- **Thème** : monochrome pro, toggle clair/sombre persisté (`localStorage`)
+
+## Démarrage
+
+```sh
+bun install
+bun run dev      # serveur de dev (vite dev)
+bun run check    # typecheck (doit passer)
+bun run build    # build de prod
+bun run lint     # prettier --check + eslint
+```
+
+## Structure
+
+- `src/routes/+page.svelte` — toute l'interface de chat
+- `src/routes/layout.css` — Tailwind v4 + tokens de thème (`:root` / `.dark`)
+- `src/lib/components/` — composants Svelte Bits vendored (`PromptBar`, `ThoughtLine`,
+  `GridReveal`, `FaultyTerminal`), adaptés au projet
+
+Voir `AGENTS.md` pour les conventions et pièges connus.
 
 ## Crédits
 
 Animation de révélation d'image : Grid Reveal, port Svelte 5 du composant React
 [Rare UI](https://rareui.com) par Swami Malode (MIT + Commons Clause + attribution,
 usage personnel — ne pas redistribuer).
-
-# sv
-
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```sh
-# create a new project
-npx sv create my-app
-```
-
-To recreate this project with the same configuration:
-
-```sh
-# recreate this project
-bun x sv@1.1.0 create --template minimal --types ts --add prettier eslint tailwindcss="plugins:typography" --install bun ia
-```
-
-## Adding features
-
-Add features to your project with `sv add`:
-
-```sh
-npx sv add
-```
-
-For example, to add Tailwind CSS:
-
-```sh
-npx sv add tailwindcss
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
