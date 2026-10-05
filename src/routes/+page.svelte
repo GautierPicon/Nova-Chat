@@ -175,20 +175,20 @@
 		const full = isImage ? '' : fakeAnswer(text, detail, detail.effort ?? currentEffort);
 		const vitesse = (detail.effort ?? currentEffort) === 'Rapide' ? 14 : 26;
 
-		// Trace de réflexion animée pendant la génération
+		// Trace de réflexion animée pendant la génération (texte uniquement)
 		clearThoughtTimers();
 		thoughtSteps = [];
-		(
-			isImage
-				? ['Analyse du prompt', "Génération de l'image", 'Révélation finale']
-				: ['Analyse de la question', 'Préparation de la réponse', 'Vérification du ton']
-		).forEach((step, i) => {
-			thoughtTimers.push(
-				setTimeout(() => {
-					thoughtSteps = [...thoughtSteps, step];
-				}, 500 + i * 1000)
+		if (!isImage) {
+			['Analyse de la question', 'Préparation de la réponse', 'Vérification du ton'].forEach(
+				(step, i) => {
+					thoughtTimers.push(
+						setTimeout(() => {
+							thoughtSteps = [...thoughtSteps, step];
+						}, 500 + i * 1000)
+					);
+				}
 			);
-		});
+		}
 
 		// Message assistant vide, rempli ensuite (texte streamé ou image révélée)
 		messages = [
@@ -375,22 +375,32 @@
 	<title>Nova — Interface IA</title>
 </svelte:head>
 
-<div class="flex min-h-screen flex-col bg-[#161210] text-[#F5EFE9]">
+<div class="relative flex min-h-screen flex-col bg-[#09090B] text-[#FAFAFA]">
+	<div
+		aria-hidden="true"
+		class="pointer-events-none absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(60%_100%_at_50%_0%,rgba(255,255,255,0.07),transparent_70%)]"
+	></div>
+	<div
+		aria-hidden="true"
+		class="pointer-events-none absolute inset-x-0 bottom-0 h-[320px] bg-[radial-gradient(60%_100%_at_50%_100%,rgba(255,255,255,0.05),transparent_70%)]"
+	></div>
 	<!-- Header -->
 	<header
-		class="sticky top-0 z-10 border-b border-white/10 bg-[#161210]/90 backdrop-blur"
+		class="sticky top-0 z-10 border-b border-white/10 bg-[#09090B]/80 backdrop-blur"
 	>
 		<div class="mx-auto flex h-14 w-full max-w-3xl items-center gap-3 px-4">
 			<span
-				class="grid h-8 w-8 place-items-center rounded-xl bg-[#FFB089] text-lg font-bold text-[#211812]"
+				class="grid h-8 w-8 place-items-center rounded-xl bg-white text-lg font-bold text-black shadow-[0_0_24px_-6px_rgba(255,255,255,0.5)]"
 				aria-hidden="true">✦</span
 			>
 			<div class="leading-tight">
-				<p class="text-sm font-semibold">Nova Chat</p>
-				<p class="text-xs text-white/50">
+				<p class="text-sm font-semibold tracking-tight">Nova Chat</p>
+				<p class="flex items-center gap-1.5 text-xs text-white/50">
 					{#if busy}
+						<i class="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-white"></i>
 						<span class="animate-pulse">Nova réfléchit…</span>
 					{:else}
+						<i class="inline-block h-1.5 w-1.5 rounded-full bg-white/70"></i>
 						En ligne · {currentEffort}
 					{/if}
 				</p>
@@ -399,7 +409,7 @@
 			<button
 				type="button"
 				onclick={newChat}
-				class="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white/80 transition hover:bg-white/10 hover:text-white"
+				class="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white/80 transition outline-none hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-white/40"
 			>
 				+ Nouvelle conversation
 			</button>
@@ -407,16 +417,19 @@
 	</header>
 
 	<!-- Messages -->
-	<div bind:this={scrollEl} class="mx-auto w-full max-w-3xl flex-1 overflow-y-auto px-4 py-6">
+	<div
+		bind:this={scrollEl}
+		class="relative mx-auto w-full max-w-3xl flex-1 overflow-y-auto px-4 py-6"
+	>
 		{#if messages.length === 0}
 			<div class="pt-10 text-center">
 				<div
-					class="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-[#3A312A] text-2xl shadow-lg"
+					class="mx-auto grid h-14 w-14 place-items-center rounded-2xl border border-white/10 bg-white/[0.04] text-2xl text-white shadow-[0_0_60px_-15px_rgba(255,255,255,0.3)]"
 				>
 					✦
 				</div>
-				<h1 class="mt-4 text-2xl font-semibold tracking-tight">Parlons avec Nova</h1>
-				<p class="mx-auto mt-2 max-w-md text-sm text-white/55">
+				<h1 class="mt-4 text-2xl font-semibold tracking-tight text-white">Parlons avec Nova</h1>
+				<p class="mx-auto mt-2 max-w-md text-sm leading-6 text-white/50">
 					Posez une question, tapez <code class="rounded bg-white/10 px-1">@</code> pour les
 					sources, <code class="rounded bg-white/10 px-1">/</code> pour les commandes. Réglez
 					l'effort jusqu'à Max pour les étincelles. Tapez
@@ -428,10 +441,12 @@
 						<button
 							type="button"
 							onclick={() => sendSuggestion(s.text)}
-							class="rounded-xl border border-white/10 bg-[#221C17] p-3 text-left transition hover:border-[#FFB089]/40 hover:bg-[#2A231D]"
+							class="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-left shadow-[0_1px_2px_rgba(0,0,0,0.4)] transition outline-none hover:border-white/25 hover:bg-white/[0.06] focus-visible:ring-2 focus-visible:ring-white/40"
 						>
-							<p class="text-xs font-semibold text-[#FFB089]">{s.title}</p>
-							<p class="mt-1 text-sm text-white/80">{s.text}</p>
+							<p class="text-[11px] font-semibold tracking-[0.14em] text-white/90 uppercase">
+								{s.title}
+							</p>
+							<p class="mt-1 text-sm text-white/70">{s.text}</p>
 						</button>
 					{/each}
 				</div>
@@ -454,40 +469,42 @@
 									</div>
 								{/if}
 								<div
-									class="rounded-2xl rounded-br-md bg-[#3A312A] px-4 py-2.5 text-sm leading-6 whitespace-pre-wrap"
+									class="rounded-2xl rounded-br-md bg-white px-4 py-2.5 text-sm leading-6 font-medium text-black shadow-[0_2px_12px_-4px_rgba(255,255,255,0.25)] whitespace-pre-wrap"
 								>
 									{m.content}
 								</div>
-								<p class="mt-1 text-right text-[11px] text-white/35">{m.time}</p>
+								<p class="mt-1 text-right text-[11px] text-white/40">{m.time}</p>
 							</div>
 						</li>
 					{:else}
 						<li class="flex gap-3">
 							<span
-								class="grid h-8 w-8 flex-none place-items-center rounded-xl bg-[#FFB089]/15 text-base text-[#FFB089]"
+								class="grid h-8 w-8 flex-none place-items-center rounded-xl border border-white/15 bg-white/[0.04] text-base text-white"
 								aria-hidden="true">✦</span
 							>
 							<div class="min-w-0 flex-1">
-								<div class="mb-1.5">
-									<ThoughtLine
-										label="Réflexion…"
-										doneLabel="Réfléchi pendant"
-										color="#F5EFE9"
-										glyphColor="#FFB089"
-										fontSize={13}
-										glyph="sparkle"
-										working={busy && m.id === messages[messages.length - 1]?.id}
-										steps={
-											m.id === messages[messages.length - 1]?.id
-												? thoughtSteps
-												: (m.steps ?? [])
-										}
-										elapsed={m.thoughtSeconds}
-										showTimer={true}
-										collapsible={true}
-										onSettle={(s: number) => onThoughtSettle(m.id, s)}
-									/>
-								</div>
+								{#if m.kind !== 'image'}
+									<div class="mb-1.5">
+										<ThoughtLine
+											label="Réflexion…"
+											doneLabel="Réfléchi pendant"
+											color="#FAFAFA"
+											glyphColor="#FFFFFF"
+											fontSize={13}
+											glyph="sparkle"
+											working={busy && m.id === messages[messages.length - 1]?.id}
+											steps={
+												m.id === messages[messages.length - 1]?.id
+													? thoughtSteps
+													: (m.steps ?? [])
+											}
+											elapsed={m.thoughtSeconds}
+											showTimer={true}
+											collapsible={true}
+											onSettle={(s: number) => onThoughtSettle(m.id, s)}
+										/>
+									</div>
+								{/if}
 								{#if m.kind === 'image'}
 									<div
 										class="mb-2 overflow-hidden rounded-2xl rounded-tl-md border border-white/10"
@@ -502,12 +519,13 @@
 											onRevealComplete={() => resolveReveal(m.id)}
 											onError={() => resolveReveal(m.id)}
 											class="ring-1 ring-white/10"
+											style="--muted: #141417"
 										/>
 									</div>
 								{/if}
 								{#if m.kind !== 'image' || m.content}
 									<div
-										class="rounded-2xl rounded-tl-md border border-white/8 bg-[#221C17] px-4 py-3 text-sm leading-6 whitespace-pre-wrap"
+										class="rounded-2xl rounded-tl-md border border-white/10 bg-white/[0.03] px-4 py-3 text-sm leading-6 whitespace-pre-wrap"
 									>
 									{#if m.content}
 										{m.content}{#if busy && m.id === messages[messages.length - 1].id}<span
@@ -516,26 +534,28 @@
 									{:else}
 										<span class="flex items-center gap-1 text-white/50">
 											<i
-												class="inline-block h-1.5 w-1.5 animate-bounce rounded-full bg-[#FFB089]"
+												class="inline-block h-1.5 w-1.5 animate-bounce rounded-full bg-white/70"
 											></i>
 											<i
-												class="inline-block h-1.5 w-1.5 animate-bounce rounded-full bg-[#FFB089] [animation-delay:150ms]"
+												class="inline-block h-1.5 w-1.5 animate-bounce rounded-full bg-white/70 [animation-delay:150ms]"
 											></i>
 											<i
-												class="inline-block h-1.5 w-1.5 animate-bounce rounded-full bg-[#FFB089] [animation-delay:300ms]"
+												class="inline-block h-1.5 w-1.5 animate-bounce rounded-full bg-white/70 [animation-delay:300ms]"
 											></i>
 										</span>
 									{/if}
 									</div>
 								{/if}
-								<p class="mt-1 flex items-center gap-2 text-[11px] text-white/35">
+								<p
+									class="mt-1 flex items-center gap-2 text-[11px] tracking-wide text-white/40"
+								>
 									<span>{m.model ?? 'Nova 3'}</span>
 									<span>·</span>
 									<span>{m.effort ?? currentEffort}</span>
 									<span>·</span>
 									<span>{m.time}</span>
 									{#if m.stopped}
-										<span class="text-[#FFB089]">· arrêté</span>
+										<span class="text-white/60">· arrêté</span>
 									{/if}
 								</p>
 							</div>
@@ -547,14 +567,16 @@
 	</div>
 
 	<!-- Input -->
-	<footer class="sticky bottom-0 border-t border-white/10 bg-[#161210]/95 pb-4 backdrop-blur">
+	<footer
+		class="relative sticky bottom-0 border-t border-white/10 bg-[#09090B]/85 pb-4 backdrop-blur"
+	>
 		<div class="mx-auto flex w-full max-w-3xl justify-center px-4 pt-3">
 			<PromptBar
 				placeholder="Posez votre question… (@ sources, / commandes)"
-				background="#3A312A"
-				color="#F5EFE9"
-				menuBackground="#493D33"
-				sparkColor="#FFB089"
+				background="#1B1B1E"
+				color="#FAFAFA"
+				menuBackground="#26262A"
+				sparkColor="#FFFFFF"
 				sparkBoost={1}
 				width={760}
 				radius={20}
