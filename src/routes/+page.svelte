@@ -4,6 +4,7 @@
 	import type { PromptBarSendDetail } from '../lib/components/PromptBar.svelte';
 	import ThoughtLine from '../lib/components/ThoughtLine.svelte';
 	import GridReveal from '../lib/components/GridReveal.svelte';
+	import FaultyTerminal from '../lib/components/FaultyTerminal.svelte';
 
 	type Role = 'user' | 'assistant';
 	interface ChatMessage {
@@ -114,15 +115,6 @@
 		{ key: 'expliquer', name: '/expliquer', description: 'Explication simple' },
 		{ key: 'taches', name: '/taches', description: 'Transforme en to-do list' },
 		{ key: 'image', name: '/image', description: 'Génère une image' }
-	];
-
-	const suggestions = [
-		{ title: 'Expliquer', text: 'Explique-moi la photosynthèse simplement' },
-		{ title: 'Comparer', text: '/comparer Svelte et React pour un SaaS' },
-		{ title: 'Brouillon', text: '/brouillon un email de candidature spontanée' },
-		{ title: 'To-do', text: '/taches lancer mon app IA en 2 semaines' },
-		{ title: 'Image', text: '/image un renard astronaute dans une forêt de néons' },
-		{ title: 'Logo', text: '/image un logo minimaliste de café, flat design, fond crème' }
 	];
 
 	function now(): string {
@@ -416,10 +408,6 @@
 		messages = [];
 		thoughtSteps = [];
 	}
-
-	function sendSuggestion(text: string) {
-		handleSend(text, { attachments: [], model: models[0] as any, effort: currentEffort });
-	}
 </script>
 
 <svelte:head>
@@ -427,6 +415,27 @@
 </svelte:head>
 
 <div class="relative flex min-h-screen flex-col bg-(--bg) text-(--ink)">
+	{#if messages.length === 0}
+		<div
+			class="fixed inset-0 z-0 opacity-90 [mask-image:radial-gradient(85%_85%_at_50%_40%,black,transparent)]"
+		>
+			{#key isDark}
+						<FaultyTerminal
+							scale={2.4}
+							digitSize={1.0}
+					timeScale={0.55}
+					scanlineIntensity={0.45}
+					curvature={0.12}
+					tint={isDark ? '#FFFFFF' : '#111113'}
+						mouseReact={true}
+						mouseStrength={1.1}
+					pageLoadAnimation={true}
+					noiseAmp={1}
+					brightness={0.9}
+				/>
+			{/key}
+		</div>
+	{/if}
 	<div
 		aria-hidden="true"
 		class="pointer-events-none absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(60%_100%_at_50%_0%,var(--halo),transparent_70%)]"
@@ -502,33 +511,18 @@
 		class="relative mx-auto w-full max-w-3xl flex-1 overflow-y-auto px-4 py-6"
 	>
 		{#if messages.length === 0}
-			<div class="pt-10 text-center">
-				<div
-					class="mx-auto grid h-14 w-14 place-items-center rounded-2xl border border-(--line) bg-(--chip) text-2xl text-(--ink) shadow-[0_0_60px_-15px_var(--glow)]"
-				>
-					✦
-				</div>
-				<h1 class="mt-4 text-2xl font-semibold tracking-tight text-(--ink)">Parlons avec Nova</h1>
-				<p class="mx-auto mt-2 max-w-md text-sm leading-6 text-(--ink-2)">
-					Posez une question, tapez <code class="rounded bg-(--chip) px-1">@</code> pour les
-					sources, <code class="rounded bg-(--chip) px-1">/</code> pour les commandes. Réglez
-					l'effort jusqu'à Max pour les étincelles. Tapez
-					<code class="rounded bg-(--chip) px-1">/image</code> suivi d'une description pour générer
-					une image.
-				</p>
-				<div class="mx-auto mt-6 grid max-w-xl grid-cols-1 gap-2 sm:grid-cols-2">
-					{#each suggestions as s}
-						<button
-							type="button"
-							onclick={() => sendSuggestion(s.text)}
-							class="rounded-xl border border-(--line) bg-(--panel) p-3 text-left shadow-[0_1px_2px_rgba(0,0,0,0.25)] transition outline-none hover:border-(--line-2) hover:bg-(--panel-2) focus-visible:ring-2 focus-visible:ring-(--ring)"
-						>
-							<p class="text-[11px] font-semibold tracking-[0.14em] text-(--ink) uppercase">
-								{s.title}
-							</p>
-							<p class="mt-1 text-sm text-(--ink-2)">{s.text}</p>
-						</button>
-					{/each}
+			<div class="relative px-4 pt-10 pb-8 text-center">
+				<div class="relative">
+					<div
+						class="mx-auto grid h-14 w-14 place-items-center rounded-2xl border border-(--line) bg-(--chip) text-2xl text-(--ink) shadow-[0_0_60px_-15px_var(--glow)] backdrop-blur-md"
+					>
+						✦
+					</div>
+					<h1
+						class="mt-4 text-2xl font-semibold tracking-tight text-(--ink) [text-shadow:0_1px_16px_var(--bg)]"
+					>
+						Parlons avec Nova
+					</h1>
 				</div>
 			</div>
 		{:else}
