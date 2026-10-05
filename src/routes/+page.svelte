@@ -2,12 +2,17 @@
 	import PromptBar from '../lib/components/PromptBar.svelte';
 	import type { PromptBarSendDetail } from '../lib/components/PromptBar.svelte';
 	import ThoughtLine from '../lib/components/ThoughtLine.svelte';
+	import GridReveal from '../lib/components/GridReveal.svelte';
 
 	type Role = 'user' | 'assistant';
 	interface ChatMessage {
 		id: number;
 		role: Role;
 		content: string;
+		kind?: 'text' | 'image';
+		imagePrompt?: string;
+		imageSrc?: string;
+		imageProgress?: number;
 		model?: string;
 		effort?: string;
 		attachments?: string[];
@@ -27,6 +32,14 @@
 	let streamReject: (() => void) | null = null;
 	let thinkTimer: ReturnType<typeof setTimeout> | null = null;
 	let thinkReject: (() => void) | null = null;
+	let genTimer: ReturnType<typeof setInterval> | null = null;
+	let activeAssistantId: number | null = null;
+	let pendingResolve: (() => void) | null = null;
+	const revealWaiters = new Map<number, () => void>();
+
+	function resolveReveal(id: number) {
+		revealWaiters.get(id)?.();
+	}
 	let thoughtSteps = $state<string[]>([]);
 	let thoughtTimers: ReturnType<typeof setTimeout>[] = [];
 	let idCounter = $state(0);
@@ -61,14 +74,17 @@
 		{ key: 'comparer', name: '/comparer', description: 'Compare deux options' },
 		{ key: 'brouillon', name: '/brouillon', description: 'Rédige un premier jet' },
 		{ key: 'expliquer', name: '/expliquer', description: 'Explication simple' },
-		{ key: 'taches', name: '/taches', description: 'Transforme en to-do list' }
+		{ key: 'taches', name: '/taches', description: 'Transforme en to-do list' },
+		{ key: 'image', name: '/image', description: 'Génère une image' }
 	];
 
 	const suggestions = [
 		{ title: 'Expliquer', text: 'Explique-moi la photosynthèse simplement' },
 		{ title: 'Comparer', text: '/comparer Svelte et React pour un SaaS' },
 		{ title: 'Brouillon', text: '/brouillon un email de candidature spontanée' },
-		{ title: 'To-do', text: '/taches lancer mon app IA en 2 semaines' }
+		{ title: 'To-do', text: '/taches lancer mon app IA en 2 semaines' },
+		{ title: 'Image', text: '/image un renard astronaute dans une forêt de néons' },
+		{ title: 'Logo', text: '/image un logo minimaliste de café, flat design, fond crème' }
 	];
 
 	function now(): string {
@@ -150,29 +166,40 @@
 
 		busy = true;
 		const assistantId = ++idCounter;
-		const full = fakeAnswer(text, detail, detail.effort ?? currentEffort);
+		activeAssistantId = assistantId;
+		const clean = text.trim();
+		const isImage = clean.toLowerCase().startsWith('/image');
+		const imagePrompt = isImage
+			? clean.replace(/^\/image\s*/i, '').trim() || 'paysage onirique'
+			: '';
+		const full = isImage ? '' : fakeAnswer(text, detail, detail.effort ?? currentEffort);
 		const vitesse = (detail.effort ?? currentEffort) === 'Rapide' ? 14 : 26;
 
 		// Trace de réflexion animée pendant la génération
 		clearThoughtTimers();
 		thoughtSteps = [];
-		['Analyse de la question', 'Préparation de la réponse', 'Vérification du ton'].forEach(
-			(step, i) => {
-				thoughtTimers.push(
-					setTimeout(() => {
-						thoughtSteps = [...thoughtSteps, step];
-					}, 500 + i * 1000)
-				);
-			}
-		);
+		(
+			isImage
+				? ['Analyse du prompt', "Génération de l'image", 'Révélation finale']
+				: ['Analyse de la question', 'Préparation de la réponse', 'Vérification du ton']
+		).forEach((step, i) => {
+			thoughtTimers.push(
+				setTimeout(() => {
+					thoughtSteps = [...thoughtSteps, step];
+				}, 500 + i * 1000)
+			);
+		});
 
-		// Message assistant vide, rempli en streaming
+		// Message assistant vide, rempli ensuite (texte streamé ou image révélée)
 		messages = [
 			...messages,
 			{
 				id: assistantId,
 				role: 'assistant',
 				content: '',
+				kind: isImage ? 'image' : 'text',
+				imagePrompt: isImage ? imagePrompt : undefined,
+				imageProgress: isImage ? 0 : undefined,
 				model: detail.model?.name ?? 'Nova 3',
 				effort: detail.effort ?? currentEffort,
 				time: now()
@@ -180,46 +207,97 @@
 		];
 
 		await new Promise<void>((resolve) => {
-			let i = 0;
+			pendingResolve = resolve;
+			const finish = () => {
+				pendingResolve = null;
+				thinkReject = null;
+				streamReject = null;
+				resolve();
+			};
+			const markStopped = (fallback: string) => {
+				messages = messages.map((m) =>
+					m.id === assistantId ? { ...m, stopped: true, content: m.content || fallback } : m
+				);
+			};
 			streamReject = () => {
 				if (streamTimer) clearInterval(streamTimer);
 				streamTimer = null;
-				messages = messages.map((m) =>
-					m.id === assistantId ? { ...m, stopped: true } : m
-				);
-				resolve();
+				markStopped('');
+				finish();
 			};
 			// Phase de réflexion (3 s) : ThoughtLine respire avant la réponse
 			thinkReject = () => {
 				if (thinkTimer) clearTimeout(thinkTimer);
 				thinkTimer = null;
-				thinkReject = null;
-				messages = messages.map((m) =>
-					m.id === assistantId
-						? { ...m, stopped: true, content: m.content || '_Réflexion interrompue._' }
-						: m
-				);
-				resolve();
+				markStopped('_Réflexion interrompue._');
+				finish();
 			};
 			thinkTimer = setTimeout(() => {
 				thinkTimer = null;
 				thinkReject = null;
-				streamTimer = setInterval(() => {
-					i += vitesse;
-					const slice = full.slice(0, i);
+				if (!isImage) {
+					let i = 0;
+					streamTimer = setInterval(() => {
+						i += vitesse;
+						const slice = full.slice(0, i);
+						messages = messages.map((m) =>
+							m.id === assistantId ? { ...m, content: slice } : m
+						);
+						if (i >= full.length) {
+							if (streamTimer) clearInterval(streamTimer);
+							streamTimer = null;
+							finish();
+						}
+					}, 40);
+					return;
+				}
+				// Branche image : progression simulée puis révélation GridReveal
+				streamReject = () => {
+					if (genTimer) clearInterval(genTimer);
+					genTimer = null;
+					revealWaiters.delete(assistantId);
+					markStopped('');
+					finish();
+				};
+				genTimer = setInterval(() => {
+					const cur = messages.find((m) => m.id === assistantId)?.imageProgress ?? 0;
+					const p = Math.min(0.9, Math.round((cur + 0.03) * 100) / 100);
 					messages = messages.map((m) =>
-						m.id === assistantId ? { ...m, content: slice } : m
+						m.id === assistantId ? { ...m, imageProgress: p } : m
 					);
-					if (i >= full.length) {
-						if (streamTimer) clearInterval(streamTimer);
-						streamTimer = null;
-						streamReject = null;
-						resolve();
-					}
-				}, 40);
+					if (p < 0.9 || !genTimer) return;
+					clearInterval(genTimer);
+					genTimer = null;
+					const seed =
+						imagePrompt
+							.toLowerCase()
+							.replace(/[^a-z0-9]+/gi, '-')
+							.replace(/^-+|-+$/g, '')
+							.slice(0, 40) || 'nova';
+					messages = messages.map((m) =>
+						m.id === assistantId
+							? { ...m, imageSrc: `https://picsum.photos/seed/${seed}/900/600` }
+							: m
+					);
+					const to = setTimeout(() => {
+						revealWaiters.delete(assistantId);
+						finish();
+					}, 20000);
+					revealWaiters.set(assistantId, () => {
+						clearTimeout(to);
+						revealWaiters.delete(assistantId);
+						finish();
+					});
+				}, 120);
 			}, 3000);
 		});
 
+		activeAssistantId = null;
+		pendingResolve = null;
+		if (genTimer) {
+			clearInterval(genTimer);
+			genTimer = null;
+		}
 		busy = false;
 		streamReject = null;
 		thinkReject = null;
@@ -229,6 +307,13 @@
 	function handleStop() {
 		thinkReject?.();
 		streamReject?.();
+		if (activeAssistantId !== null && revealWaiters.delete(activeAssistantId)) {
+			// Stop pendant l'attente de la révélation : aucun reject actif
+			const id = activeAssistantId;
+			messages = messages.map((m) => (m.id === id ? { ...m, stopped: true } : m));
+			pendingResolve?.();
+			pendingResolve = null;
+		}
 		clearThoughtTimers();
 		busy = false;
 	}
@@ -334,7 +419,9 @@
 				<p class="mx-auto mt-2 max-w-md text-sm text-white/55">
 					Posez une question, tapez <code class="rounded bg-white/10 px-1">@</code> pour les
 					sources, <code class="rounded bg-white/10 px-1">/</code> pour les commandes. Réglez
-					l'effort jusqu'à Max pour les étincelles.
+					l'effort jusqu'à Max pour les étincelles. Tapez
+					<code class="rounded bg-white/10 px-1">/image</code> suivi d'une description pour générer
+					une image.
 				</p>
 				<div class="mx-auto mt-6 grid max-w-xl grid-cols-1 gap-2 sm:grid-cols-2">
 					{#each suggestions as s}
@@ -401,9 +488,27 @@
 										onSettle={(s: number) => onThoughtSettle(m.id, s)}
 									/>
 								</div>
-								<div
-									class="rounded-2xl rounded-tl-md border border-white/8 bg-[#221C17] px-4 py-3 text-sm leading-6 whitespace-pre-wrap"
-								>
+								{#if m.kind === 'image'}
+									<div
+										class="mb-2 overflow-hidden rounded-2xl rounded-tl-md border border-white/10"
+									>
+										<GridReveal
+											src={m.imageSrc ?? null}
+											alt={m.imagePrompt ?? 'Image générée'}
+											progress={m.imageProgress ?? 0}
+											aspect={3 / 2}
+											caption={m.imagePrompt ?? 'Image'}
+											estimatedDuration={6000}
+											onRevealComplete={() => resolveReveal(m.id)}
+											onError={() => resolveReveal(m.id)}
+											class="ring-1 ring-white/10"
+										/>
+									</div>
+								{/if}
+								{#if m.kind !== 'image' || m.content}
+									<div
+										class="rounded-2xl rounded-tl-md border border-white/8 bg-[#221C17] px-4 py-3 text-sm leading-6 whitespace-pre-wrap"
+									>
 									{#if m.content}
 										{m.content}{#if busy && m.id === messages[messages.length - 1].id}<span
 												class="animate-pulse">▍</span
@@ -421,7 +526,8 @@
 											></i>
 										</span>
 									{/if}
-								</div>
+									</div>
+								{/if}
 								<p class="mt-1 flex items-center gap-2 text-[11px] text-white/35">
 									<span>{m.model ?? 'Nova 3'}</span>
 									<span>·</span>
@@ -471,6 +577,15 @@
 		</div>
 		<p class="mt-2 text-center text-[11px] text-white/30">
 			Entrée pour envoyer · Maj+Entrée pour un saut de ligne · Demo locale sans backend
+		</p>
+		<p class="mt-1 text-center text-[11px] text-white/30">
+			Animation de révélation d'image :
+			<a
+				class="underline hover:text-white/60"
+				href="https://rareui.com"
+				target="_blank"
+				rel="noreferrer">Rare UI</a
+			>
 		</p>
 	</footer>
 </div>
