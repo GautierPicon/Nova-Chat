@@ -1,6 +1,7 @@
 <script lang="ts">
 	import PromptBar from '../lib/components/PromptBar.svelte';
 	import type { PromptBarSendDetail } from '../lib/components/PromptBar.svelte';
+	import ThoughtLine from '../lib/components/ThoughtLine.svelte';
 
 	type Role = 'user' | 'assistant';
 	interface ChatMessage {
@@ -12,6 +13,8 @@
 		attachments?: string[];
 		time: string;
 		stopped?: boolean;
+		steps?: string[];
+		thoughtSeconds?: number;
 	}
 
 	let messages = $state<ChatMessage[]>([]);
@@ -22,7 +25,28 @@
 	let pendingFiles = $state<{ resolve: (v: string[]) => void } | null>(null);
 	let streamTimer: ReturnType<typeof setInterval> | null = null;
 	let streamReject: (() => void) | null = null;
+	let thinkTimer: ReturnType<typeof setTimeout> | null = null;
+	let thinkReject: (() => void) | null = null;
+	let thoughtSteps = $state<string[]>([]);
+	let thoughtTimers: ReturnType<typeof setTimeout>[] = [];
 	let idCounter = $state(0);
+
+	function clearThoughtTimers() {
+		thoughtTimers.forEach((t) => clearTimeout(t));
+		thoughtTimers = [];
+	}
+
+	function onThoughtSettle(id: number, seconds: number) {
+		messages = messages.map((m) =>
+			m.id === id
+				? {
+						...m,
+						thoughtSeconds: m.thoughtSeconds ?? seconds,
+						steps: m.steps?.length ? m.steps : [...thoughtSteps]
+					}
+				: m
+		);
+	}
 
 	const models = [
 		{ key: 'nova-3', name: 'Nova 3', tag: 'Puissant' },
@@ -129,6 +153,19 @@
 		const full = fakeAnswer(text, detail, detail.effort ?? currentEffort);
 		const vitesse = (detail.effort ?? currentEffort) === 'Rapide' ? 14 : 26;
 
+		// Trace de réflexion animée pendant la génération
+		clearThoughtTimers();
+		thoughtSteps = [];
+		['Analyse de la question', 'Préparation de la réponse', 'Vérification du ton'].forEach(
+			(step, i) => {
+				thoughtTimers.push(
+					setTimeout(() => {
+						thoughtSteps = [...thoughtSteps, step];
+					}, 500 + i * 1000)
+				);
+			}
+		);
+
 		// Message assistant vide, rempli en streaming
 		messages = [
 			...messages,
@@ -152,27 +189,47 @@
 				);
 				resolve();
 			};
-			streamTimer = setInterval(() => {
-				i += vitesse;
-				const slice = full.slice(0, i);
+			// Phase de réflexion (3 s) : ThoughtLine respire avant la réponse
+			thinkReject = () => {
+				if (thinkTimer) clearTimeout(thinkTimer);
+				thinkTimer = null;
+				thinkReject = null;
 				messages = messages.map((m) =>
-					m.id === assistantId ? { ...m, content: slice } : m
+					m.id === assistantId
+						? { ...m, stopped: true, content: m.content || '_Réflexion interrompue._' }
+						: m
 				);
-				if (i >= full.length) {
-					if (streamTimer) clearInterval(streamTimer);
-					streamTimer = null;
-					streamReject = null;
-					resolve();
-				}
-			}, 40);
+				resolve();
+			};
+			thinkTimer = setTimeout(() => {
+				thinkTimer = null;
+				thinkReject = null;
+				streamTimer = setInterval(() => {
+					i += vitesse;
+					const slice = full.slice(0, i);
+					messages = messages.map((m) =>
+						m.id === assistantId ? { ...m, content: slice } : m
+					);
+					if (i >= full.length) {
+						if (streamTimer) clearInterval(streamTimer);
+						streamTimer = null;
+						streamReject = null;
+						resolve();
+					}
+				}, 40);
+			}, 3000);
 		});
 
 		busy = false;
 		streamReject = null;
+		thinkReject = null;
+		clearThoughtTimers();
 	}
 
 	function handleStop() {
+		thinkReject?.();
 		streamReject?.();
+		clearThoughtTimers();
 		busy = false;
 	}
 
@@ -221,6 +278,7 @@
 	function newChat() {
 		handleStop();
 		messages = [];
+		thoughtSteps = [];
 	}
 
 	function sendSuggestion(text: string) {
@@ -323,6 +381,26 @@
 								aria-hidden="true">✦</span
 							>
 							<div class="min-w-0 flex-1">
+								<div class="mb-1.5">
+									<ThoughtLine
+										label="Réflexion…"
+										doneLabel="Réfléchi pendant"
+										color="#F5EFE9"
+										glyphColor="#FFB089"
+										fontSize={13}
+										glyph="sparkle"
+										working={busy && m.id === messages[messages.length - 1]?.id}
+										steps={
+											m.id === messages[messages.length - 1]?.id
+												? thoughtSteps
+												: (m.steps ?? [])
+										}
+										elapsed={m.thoughtSeconds}
+										showTimer={true}
+										collapsible={true}
+										onSettle={(s: number) => onThoughtSettle(m.id, s)}
+									/>
+								</div>
 								<div
 									class="rounded-2xl rounded-tl-md border border-white/8 bg-[#221C17] px-4 py-3 text-sm leading-6 whitespace-pre-wrap"
 								>
