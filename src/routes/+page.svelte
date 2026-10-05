@@ -645,10 +645,12 @@
 	</div>
 
 	<!-- Input -->
-	<footer
-		class="relative sticky bottom-0 border-t border-(--line) bg-[color-mix(in_srgb,var(--bg)_85%,transparent)] pb-4 backdrop-blur"
-	>
-		<div class="mx-auto flex w-full max-w-3xl justify-center px-4 pt-3">
+	<footer class="relative sticky bottom-0 bg-transparent pb-4">
+		<div
+			aria-hidden="true"
+			class="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(to_top,var(--bg)_20%,transparent)]"
+		></div>
+		<div class="relative mx-auto flex w-full max-w-3xl justify-center px-4 pt-3">
 			<div
 				class="w-full max-w-[760px] rounded-[20px] shadow-[0_8px_30px_-12px_rgba(0,0,0,0.45)] ring-1 ring-(--line)"
 			>
