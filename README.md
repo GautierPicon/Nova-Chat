@@ -1,38 +1,39 @@
 # Nova Chat
 
-Interface de chat IA en noir & blanc — SvelteKit 5, Tailwind v4, mode clair/sombre.
-Démo locale : les réponses sont simulées (streaming + réflexion), aucune clé API requise.
+Black & white AI chat interface — SvelteKit 5, Tailwind v4, light/dark mode.
+Local demo: answers are simulated (streaming + thinking), no API key required.
 
-## Fonctionnalités
+## Features
 
-- **Conversation** : envoi, stop en cours de génération, historique, pièces jointes, dictée
-  vocale (Web Speech API), sélecteur de modèle et curseur d'effort
-- **Ligne de réflexion** : chrono réel de réflexion avant chaque réponse
-- **`/image <description>`** : génération d'image avec révélation animée en grille
-- **Intro plein écran** : fond WebGL réactif à la souris (visible avant le premier message)
-- **Thème** : monochrome pro, toggle clair/sombre persisté (`localStorage`)
+- **Conversation**: send, stop mid-generation, history, attachments, voice dictation
+  (Web Speech API), model picker and effort slider
+- **Thinking line**: real measured thinking time before each answer
+- **`/image <description>`**: image generation with animated grid reveal
+- **Fullscreen intro**: mouse-reactive WebGL background (shown before the first message)
+- **Theme**: pro monochrome, persisted light/dark toggle (`localStorage`)
 
-## Démarrage
+## Getting started
 
 ```sh
 bun install
-bun run dev      # serveur de dev (vite dev)
-bun run check    # typecheck (doit passer)
-bun run build    # build de prod
+bun run dev      # dev server (vite dev)
+bun run check    # typecheck (must pass)
+bun run build    # production build
 bun run lint     # prettier --check + eslint
 ```
 
 ## Structure
 
-- `src/routes/+page.svelte` — toute l'interface de chat
-- `src/routes/layout.css` — Tailwind v4 + tokens de thème (`:root` / `.dark`)
-- `src/lib/components/` — composants Svelte Bits vendored (`PromptBar`, `ThoughtLine`,
-  `GridReveal`, `FaultyTerminal`), adaptés au projet
+- `src/routes/+page.svelte` — chat orchestration (state, streaming, theme)
+- `src/lib/demo.ts` — demo data (models, efforts, commands) and fake answers
+- `src/lib/components/` — page components (`ChatHeader`, `EmptyState`, `MessageItem`)
+  plus vendored Svelte Bits (`PromptBar`, `ThoughtLine`, `GridReveal`, `FaultyTerminal`)
+- `src/routes/layout.css` — Tailwind v4 + theme tokens (`:root` / `.dark`)
 
-Voir `AGENTS.md` pour les conventions et pièges connus.
+See `AGENTS.md` for conventions and known pitfalls.
 
-## Crédits
+## Credits
 
-Animation de révélation d'image : Grid Reveal, port Svelte 5 du composant React
-[Rare UI](https://rareui.com) par Swami Malode (MIT + Commons Clause + attribution,
-usage personnel — ne pas redistribuer).
+Image reveal animation: Grid Reveal, Svelte 5 port of the React component by
+[Rare UI](https://rareui.com) (Swami Malode) — MIT + Commons Clause + attribution,
+personal use only, do not redistribute.
