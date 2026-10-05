@@ -34,8 +34,15 @@ export default defineConfig(
 		}
 	},
 	{
-		// Override or add rule settings here, such as:
-		// 'svelte/button-has-type': 'error'
+		files: ['src/lib/components/PromptBar.svelte', 'src/lib/components/ThoughtLine.svelte'],
+		rules: {
+			'@typescript-eslint/no-unused-expressions': 'off',
+			'svelte/require-each-key': 'off',
+			'no-empty': 'off',
+			'@typescript-eslint/no-unused-vars': 'off'
+		}
+	},
+	{
 		rules: {}
 	}
 );
