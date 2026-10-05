@@ -1,2 +1,84 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+	color-scheme: light;
+	--bg: #f4f4f5;
+	--panel: #ffffff;
+	--panel-2: #ececee;
+	--ink: #111113;
+	--ink-2: rgba(17, 17, 19, 0.62);
+	--ink-3: rgba(17, 17, 19, 0.42);
+	--line: rgba(17, 17, 19, 0.12);
+	--line-2: rgba(17, 17, 19, 0.28);
+	--chip: rgba(17, 17, 19, 0.05);
+	--hover: rgba(17, 17, 19, 0.08);
+	--halo: rgba(0, 0, 0, 0.05);
+	--glow: rgba(0, 0, 0, 0.28);
+	--ring: rgba(0, 0, 0, 0.35);
+	--user-bg: #111113;
+	--user-ink: #ffffff;
+	--logo-bg: #111113;
+	--logo-ink: #ffffff;
+	--prompt-bg: #ffffff;
+	--prompt-menu: #f4f4f5;
+	--prompt-ink: #111113;
+	--prompt-spark: #18181b;
+	--thought-ink: #111113;
+	--reveal-muted: #e9e9ec;
+}
+
+.dark {
+	color-scheme: dark;
+	--bg: #09090b;
+	--panel: #131316;
+	--panel-2: #1b1b1e;
+	--ink: #fafafa;
+	--ink-2: rgba(250, 250, 250, 0.6);
+	--ink-3: rgba(250, 250, 250, 0.4);
+	--line: rgba(255, 255, 255, 0.1);
+	--line-2: rgba(255, 255, 255, 0.25);
+	--chip: rgba(255, 255, 255, 0.05);
+	--hover: rgba(255, 255, 255, 0.09);
+	--halo: rgba(255, 255, 255, 0.07);
+	--glow: rgba(255, 255, 255, 0.5);
+	--ring: rgba(255, 255, 255, 0.4);
+	--user-bg: #fafafa;
+	--user-ink: #000000;
+	--logo-bg: #fafafa;
+	--logo-ink: #000000;
+	--prompt-bg: #1b1b1e;
+	--prompt-menu: #26262a;
+	--prompt-ink: #fafafa;
+	--prompt-spark: #ffffff;
+	--thought-ink: #fafafa;
+	--reveal-muted: #141417;
+}
+
+::selection {
+	background: var(--ink);
+	color: var(--bg);
+}
+
+* {
+	scrollbar-width: thin;
+	scrollbar-color: var(--line-2) transparent;
+}
+
+*::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+	background: var(--line-2);
+	border-radius: 8px;
+	border: 3px solid transparent;
+	background-clip: content-box;
+}
+
+*::-webkit-scrollbar-track {
+	background: transparent;
+}
