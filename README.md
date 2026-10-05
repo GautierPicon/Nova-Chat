@@ -1,3 +1,13 @@
+# Nova Chat
+
+Interface de chat IA (SvelteKit + Tailwind).
+
+## Crédits
+
+Animation de révélation d'image : Grid Reveal, port Svelte 5 du composant React
+[Rare UI](https://rareui.com) par Swami Malode (MIT + Commons Clause + attribution,
+usage personnel — ne pas redistribuer).
+
 # sv
 
 Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).

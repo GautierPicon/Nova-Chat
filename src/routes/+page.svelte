@@ -42,6 +42,9 @@
 	}
 	let thoughtSteps = $state<string[]>([]);
 	let thoughtTimers: ReturnType<typeof setTimeout>[] = [];
+	let thoughtT0 = 0;
+	let thoughtElapsed = $state(0);
+	let thoughtClock: ReturnType<typeof setInterval> | null = null;
 	let idCounter = $state(0);
 
 	function clearThoughtTimers() {
@@ -49,12 +52,45 @@
 		thoughtTimers = [];
 	}
 
+	function startThoughtClock() {
+		stopThoughtClock();
+		thoughtT0 = performance.now();
+		thoughtElapsed = 0;
+		thoughtClock = setInterval(() => {
+			thoughtElapsed = Math.round((performance.now() - thoughtT0) / 100) / 10;
+		}, 100);
+	}
+
+	function stopThoughtClock() {
+		if (thoughtClock) clearInterval(thoughtClock);
+		thoughtClock = null;
+	}
+
+	function thoughtFinal() {
+		return Math.round((performance.now() - thoughtT0) / 100) / 10;
+	}
+
+	function settleThought(id: number, stopped: boolean, fallback = '') {
+		const final = thoughtFinal();
+		stopThoughtClock();
+		messages = messages.map((m) =>
+			m.id === id
+				? {
+						...m,
+						...(stopped ? { stopped: true, content: m.content || fallback } : {}),
+						thoughtSeconds: m.thoughtSeconds ?? final,
+						steps: m.steps?.length ? m.steps : [...thoughtSteps]
+					}
+				: m
+		);
+	}
+
 	function onThoughtSettle(id: number, seconds: number) {
 		messages = messages.map((m) =>
 			m.id === id
 				? {
 						...m,
-						thoughtSeconds: m.thoughtSeconds ?? seconds,
+						thoughtSeconds: m.thoughtSeconds ?? (seconds > 0 ? seconds : undefined),
 						steps: m.steps?.length ? m.steps : [...thoughtSteps]
 					}
 				: m
@@ -178,6 +214,7 @@
 		// Trace de réflexion animée pendant la génération (texte uniquement)
 		clearThoughtTimers();
 		thoughtSteps = [];
+		startThoughtClock();
 		if (!isImage) {
 			['Analyse de la question', 'Préparation de la réponse', 'Vérification du ton'].forEach(
 				(step, i) => {
@@ -215,9 +252,7 @@
 				resolve();
 			};
 			const markStopped = (fallback: string) => {
-				messages = messages.map((m) =>
-					m.id === assistantId ? { ...m, stopped: true, content: m.content || fallback } : m
-				);
+				settleThought(assistantId, true, fallback);
 			};
 			streamReject = () => {
 				if (streamTimer) clearInterval(streamTimer);
@@ -298,6 +333,7 @@
 			clearInterval(genTimer);
 			genTimer = null;
 		}
+		settleThought(assistantId, false);
 		busy = false;
 		streamReject = null;
 		thinkReject = null;
@@ -309,8 +345,7 @@
 		streamReject?.();
 		if (activeAssistantId !== null && revealWaiters.delete(activeAssistantId)) {
 			// Stop pendant l'attente de la révélation : aucun reject actif
-			const id = activeAssistantId;
-			messages = messages.map((m) => (m.id === id ? { ...m, stopped: true } : m));
+			settleThought(activeAssistantId, true);
 			pendingResolve?.();
 			pendingResolve = null;
 		}
@@ -395,15 +430,12 @@
 			>
 			<div class="leading-tight">
 				<p class="text-sm font-semibold tracking-tight">Nova Chat</p>
-				<p class="flex items-center gap-1.5 text-xs text-white/50">
-					{#if busy}
+				{#if busy}
+					<p class="flex items-center gap-1.5 text-xs text-white/50">
 						<i class="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-white"></i>
 						<span class="animate-pulse">Nova réfléchit…</span>
-					{:else}
-						<i class="inline-block h-1.5 w-1.5 rounded-full bg-white/70"></i>
-						En ligne · {currentEffort}
-					{/if}
-				</p>
+					</p>
+				{/if}
 			</div>
 			<span class="flex-1"></span>
 			<button
@@ -498,7 +530,11 @@
 													? thoughtSteps
 													: (m.steps ?? [])
 											}
-											elapsed={m.thoughtSeconds}
+											elapsed={
+												busy && m.id === messages[messages.length - 1]?.id
+													? thoughtElapsed
+													: m.thoughtSeconds
+											}
 											showTimer={true}
 											collapsible={true}
 											onSettle={(s: number) => onThoughtSettle(m.id, s)}
@@ -597,18 +633,6 @@
 				onDictate={handleDictate}
 			/>
 		</div>
-		<p class="mt-2 text-center text-[11px] text-white/30">
-			Entrée pour envoyer · Maj+Entrée pour un saut de ligne · Demo locale sans backend
-		</p>
-		<p class="mt-1 text-center text-[11px] text-white/30">
-			Animation de révélation d'image :
-			<a
-				class="underline hover:text-white/60"
-				href="https://rareui.com"
-				target="_blank"
-				rel="noreferrer">Rare UI</a
-			>
-		</p>
 	</footer>
 </div>
 
