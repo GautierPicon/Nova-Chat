@@ -421,8 +421,8 @@
 		>
 			{#key isDark}
 						<FaultyTerminal
-							scale={2.4}
-							digitSize={1.0}
+							scale={isDark ? 2.4 : 1.7}
+							digitSize={isDark ? 1.0 : 1.5}
 					timeScale={0.55}
 					scanlineIntensity={0.45}
 					curvature={0.12}

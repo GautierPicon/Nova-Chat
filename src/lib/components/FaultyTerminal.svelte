@@ -197,6 +197,9 @@ void main() {
       col.b = getColor(p - ca).b;
     }
 
+    // alpha découplée de la teinte : une teinte sombre (mode clair) restait
+    // sinon quasi transparente car l'alpha suivait la luminosité teintée
+    vec3 untinted = col;
     col *= uTint;
     col *= uBrightness;
 
@@ -205,7 +208,7 @@ void main() {
       col += (rnd - 0.5) * (uDither * 0.003922);
     }
 
-    gl_FragColor = vec4(col, max(max(col.r, col.g), col.b));
+    gl_FragColor = vec4(col, max(max(untinted.r, untinted.g), untinted.b));
 }
 `;
 
